@@ -1,0 +1,62 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# build output
+/.next/
+/out/
+/build
+/coverage
+*.tsbuildinfo
+next-env.d.ts
+
+# secrets: never commit
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# data files: the portfolio must never ship raw or confidential data.
+# Public, non-sensitive datasets go in public/data/ after review.
+*.csv
+*.xlsx
+*.xls
+*.db
+*.sqlite
+*.sqlite3
+*.parquet
+!public/data/**
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local tooling
+.vercel
+.claude/settings.local.json
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# CV sources and full versions (personal details) - only the web PDFs in public/cv are published
+/cv/
+
+# local review captures
+/captures/
+
+# local Claude Code settings
+/.claude/

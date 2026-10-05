@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Light = "note de recherche" (papier, encre bleu nuit, or sourd).
+   .night = moments sombres (Hero figure, DAN, Data Lab) and the whole
+   site when the system asks for dark mode.
+   ------------------------------------------------------------------ */
+:root {
+  --paper: #f6f5f1;
+  --paper-2: #eeece5;
+  --ink: #0e1a2b;
+  --ink-2: #3b4757;
+  --ink-3: #5b6573;
+  --rule: #dad6cb;
+  --rule-strong: #b9b3a3;
+  --accent: #85662c; /* text-safe gold, 4.8:1 on paper */
+  --accent-soft: #b08d57; /* decorative only */
+  --focus: #1f4e8c;
+  --todo-bg: #fff3c4;
+  --todo-ink: #6b4e00;
+  color-scheme: light;
+}
+
+.night,
+:root .night {
+  --paper: #0b111a;
+  --paper-2: #111926;
+  --ink: #ece9e1;
+  --ink-2: #b7bec8;
+  --ink-3: #8c96a3;
+  --rule: #223042;
+  --rule-strong: #34465c;
+  --accent: #cda868;
+  --accent-soft: #a88647;
+  --focus: #8fb3e8;
+  --todo-bg: #3a2f10;
+  --todo-ink: #f2d98c;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0b111a;
+    --paper-2: #111926;
+    --ink: #ece9e1;
+    --ink-2: #b7bec8;
+    --ink-3: #8c96a3;
+    --rule: #223042;
+    --rule-strong: #34465c;
+    --accent: #cda868;
+    --accent-soft: #a88647;
+    --focus: #8fb3e8;
+    --todo-bg: #3a2f10;
+    --todo-ink: #f2d98c;
+    color-scheme: dark;
+  }
+  :root .night {
+    --paper: #060a10;
+    --paper-2: #0d141f;
+    --rule: #1b2737;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.night {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: #0b111a;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------
+   Typography helpers
+   ------------------------------------------------------------------ */
+@utility display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  font-size: clamp(2.5rem, 1.55rem + 4.2vw, 5rem);
+  text-wrap: balance;
+}
+
+@utility h-section {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  font-size: clamp(1.875rem, 1.35rem + 2vw, 3rem);
+  text-wrap: balance;
+}
+
+@utility h-item {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  text-wrap: balance;
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility lede {
+  font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  line-height: 1.6;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility section-pad {
+  padding-block: clamp(4rem, 2.75rem + 5vw, 8rem);
+}
+
+/* Inline links inside running text are always underlined. */
+@utility prose-link {
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 160ms ease;
+  &:hover {
+    text-decoration-color: var(--accent);
+  }
+}
+
+/* Graph-paper backdrop, faded with a mask so it never competes with text. */
+.grid-backdrop {
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse 75% 70% at 72% 35%, #000 15%, transparent 72%);
+  opacity: 0.6;
+}
+
+/* Small dot that travels along the DAN workflow track. */
+@media (prefers-reduced-motion: no-preference) {
+  .flow-pulse {
+    animation: flow-pulse 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+}
+@keyframes flow-pulse {
+  0% {
+    transform: translateX(0%);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Content placeholder: visible on purpose, blocked in production. */
+.todo {
+  background: var(--todo-bg);
+  color: var(--todo-ink);
+  outline: 1px dashed currentColor;
+  outline-offset: 1px;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0 0.25em;
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------
+   Motion
+   Reveal is opt-in through html.js so content stays visible without JS.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition:
+      opacity 520ms var(--ease-out-soft),
+      transform 620ms var(--ease-out-soft);
+    transition-delay: calc(var(--reveal-i, 0) * 70ms);
+  }
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .page-enter {
+    animation: page-enter 360ms var(--ease-out-soft) both;
+  }
+
+  .hero-line {
+    animation: hero-line 900ms var(--ease-out-soft) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 80ms);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0.001;
+    transform: translate3d(0, 6px, 0);
+  }
+}
+
+@keyframes hero-line {
+  from {
+    opacity: 0.001;
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
