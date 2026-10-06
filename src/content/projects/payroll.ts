@@ -114,8 +114,8 @@ export const payroll: Project = {
       ],
     },
     results: {
-      fr: ["Version 1.8.0, couverte par une suite de 1 637 tests automatisés exécutée en intégration continue (GitHub Actions).", "La sécurité des données de paie est traitée dès la conception : aucun mot de passe par défaut, droits par rôle, journalisation des changements de statut et sauvegardes vérifiées avant toute restauration."],
-      en: ["Version 1.8.0, covered by a suite of 1,637 automated tests running in continuous integration (GitHub Actions).", "Payroll data security is handled by design: no default password, role-based permissions, logged status changes and verified backups before any restore."],
+      fr: ["Version 1.8.0, couverte par plus de 1 600 tests automatisés exécutés en intégration continue (GitHub Actions).", "La sécurité des données de paie est traitée dès la conception : aucun mot de passe par défaut, droits par rôle, journalisation des changements de statut et sauvegardes vérifiées avant toute restauration."],
+      en: ["Version 1.8.0, covered by more than 1,600 automated tests running in continuous integration (GitHub Actions).", "Payroll data security is handled by design: no default password, role-based permissions, logged status changes and verified backups before any restore."],
     },
     limits: {
       fr: [
