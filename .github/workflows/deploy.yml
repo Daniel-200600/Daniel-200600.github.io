@@ -57,3 +57,29 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+
+  # Smoke test from GitHub's network: every key URL of the live site must answer 200.
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check live pages
+        run: |
+          base=https://daniel-200600.github.io
+          fail=0
+          for path in / /fr/ /en/ /fr/projects/ /fr/projects/dan/ /en/projects/dan/ /fr/projects/payroll/ \
+                      /fr/projects/cemac-payment-bundles/ /fr/about/ /en/lab/ /cv/cv-fr.pdf /cv/cv-en.pdf \
+                      /og/fr.png /projects/dan/kpis.webp /sitemap.xml /robots.txt '/fr/__next.$d$locale.__PAGE__.txt'; do
+            code=000
+            for attempt in 1 2 3 4 5 6; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "$base$path")
+              [ "$code" = 200 ] && break
+              sleep 10
+            done
+            echo "$code $path"
+            [ "$code" = 200 ] || fail=1
+          done
+          missing=$(curl -s -o /dev/null -w '%{http_code}' "$base/page-inexistante/")
+          echo "$missing /page-inexistante/ (expected 404)"
+          [ "$missing" = 404 ] || fail=1
+          exit $fail
