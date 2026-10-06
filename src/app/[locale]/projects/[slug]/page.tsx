@@ -6,7 +6,7 @@ import { projects, getProject } from "@/content/projects";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
 import { isTodo } from "@/lib/content";
-import { alternatesFor } from "@/lib/site";
+import { alternatesFor, ogImages } from "@/lib/site";
 import type { CaseStudySections, Project, Rich } from "@/lib/types";
 import { CaseStudyNav } from "@/components/project/CaseStudyNav";
 import { DomainTags } from "@/components/project/DomainTags";
@@ -29,7 +29,12 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/projects
     title: project.title[locale],
     description: project.summary[locale],
     alternates: alternatesFor(locale, `/projects/${slug}`),
-    openGraph: { type: "article", title: project.title[locale], description: project.summary[locale] },
+    openGraph: {
+      type: "article",
+      title: project.title[locale],
+      description: project.summary[locale],
+      images: ogImages(locale, project.title[locale]),
+    },
   };
 }
 

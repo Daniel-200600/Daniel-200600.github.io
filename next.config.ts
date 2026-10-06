@@ -1,21 +1,21 @@
 import type { NextConfig } from "next";
 
-const securityHeaders = [
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "X-Frame-Options", value: "DENY" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-];
-
+/**
+ * Fully static site (GitHub Pages): every page is pre-rendered to HTML in out/.
+ * Consequences handled in the code: language choice on "/" happens in
+ * public/index.html, unknown URLs land on app/global-not-found.tsx, and
+ * images are served as-is (they are already small WebP files).
+ */
 const nextConfig: NextConfig = {
+  output: "export",
+  trailingSlash: true,
   poweredByHeader: false,
+  images: { unoptimized: true },
   experimental: {
     /* Most visitors (recruiters) arrive once: shipping the small Tailwind CSS inside the HTML
        removes a render-blocking request on first load. */
     inlineCss: true,
-  },
-  async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    globalNotFound: true,
   },
 };
 

@@ -6,7 +6,7 @@ Portfolio professionnel bilingue (FR/EN) : data, business intelligence, IA et fi
 
 | Brique | Rôle |
 |---|---|
-| Next.js 16 (App Router), React 19 | Pages pré-générées en statique, metadata, sitemap, images Open Graph |
+| Next.js 16 (App Router), React 19 | Site exporté en HTML statique, metadata, sitemap, images de partage |
 | TypeScript (strict) | Contenu typé : un projet incomplet ne compile pas |
 | Tailwind CSS 4 | Design system en variables CSS (`src/app/globals.css`) |
 
@@ -36,7 +36,6 @@ src/
   components/          layout/, sections/, project/, motion/, ui/
   i18n/                Langues et textes d'interface
   lib/                 Types, helpers SEO et placeholders
-  proxy.ts             Redirige / vers /fr ou /en selon la langue du navigateur
 scripts/check-content.mjs
 ```
 
@@ -50,15 +49,26 @@ information non validée ne peut être publiée par erreur.
 
 Modifier le contenu : voir [CONTENT.md](CONTENT.md).
 
-## Déploiement (Vercel)
+## Mise en ligne (GitHub Pages)
 
-1. Pousser le dépôt sur GitHub.
-2. Sur vercel.com : *Add New → Project*, importer le dépôt (framework détecté automatiquement).
-3. Optionnel : variable `NEXT_PUBLIC_SITE_URL` une fois le domaine personnalisé configuré.
-4. Domaine personnalisé : *Project → Settings → Domains*.
+Le site est publié gratuitement sur **https://daniel-200600.github.io**.
 
-Les déploiements de prévisualisation (branches) passent même avec des placeholders ;
-le déploiement de production les refuse.
+Chaque `git push` sur `main` déclenche `.github/workflows/deploy.yml` :
+lint, vérification des types, build statique (`out/`) puis publication.
+Le build échoue, et rien n'est publié, s'il reste un contenu à fournir ou un tiret cadratin.
+
+Le site est 100 % statique (`output: "export"`) :
+
+- `public/index.html` choisit la langue (FR ou EN) selon le navigateur ;
+- `src/app/global-not-found.tsx` sert de page 404 et redirige les adresses sans langue (`/projects/` vers `/fr/projects/`) ;
+- les images de partage sont dans `public/og/`.
+
+Pour un nom de domaine personnalisé plus tard : *Settings → Pages → Custom domain* sur GitHub,
+puis mettre à jour `NEXT_PUBLIC_SITE_URL` dans le workflow.
+
+> Note : sous Windows, `next build` écrit mal certains fichiers de préchargement
+> (bug de Next.js 16 sur les chemins). Le build de production se fait sous Linux
+> dans GitHub Actions, où il est correct.
 
 ## Confidentialité
 

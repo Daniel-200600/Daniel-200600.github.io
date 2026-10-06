@@ -5,7 +5,7 @@ import { labEntries } from "@/content/lab";
 import { profile } from "@/content/profile";
 import { isLocale, locales, ogLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { alternatesFor, siteUrl } from "@/lib/site";
+import { alternatesFor, ogImages, siteUrl } from "@/lib/site";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { RevealObserver } from "@/components/motion/RevealObserver";
@@ -50,6 +50,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
     description: profile.seoDescription[locale],
     alternates: alternatesFor(locale),
     authors: [{ name: profile.fullName }],
+    referrer: "strict-origin-when-cross-origin",
     openGraph: {
       type: "website",
       siteName: profile.fullName,
@@ -57,8 +58,14 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
       description: profile.seoDescription[locale],
       locale: ogLocale[locale],
       alternateLocale: locales.filter((l) => l !== locale).map((l) => ogLocale[l]),
+      images: ogImages(locale, profile.fullName),
     },
-    twitter: { card: "summary_large_image", title, description: profile.seoDescription[locale] },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: profile.seoDescription[locale],
+      images: ogImages(locale, profile.fullName),
+    },
   };
 }
 

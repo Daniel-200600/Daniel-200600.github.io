@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tchomtchi Kamgang Daniel Merlys · Data, Business Intelligence, IA, Finance</title>
+    <meta
+      name="description"
+      content="Portfolio de Tchomtchi Kamgang Daniel Merlys : data, business intelligence, IA et finance. Projets d'analyse, d'automatisation et de reporting construits à partir de problèmes métier réels."
+    />
+    <link rel="canonical" href="/fr/" />
+    <link rel="alternate" hreflang="fr" href="/fr/" />
+    <link rel="alternate" hreflang="en" href="/en/" />
+    <link rel="alternate" hreflang="x-default" href="/fr/" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f6f5f1" />
+    <script>
+      // The site is static: the language is chosen here, from the browser's preferences.
+      (function () {
+        var langs = navigator.languages || [navigator.language || ""];
+        var lang = "fr";
+        for (var i = 0; i < langs.length; i++) {
+          var l = String(langs[i]).toLowerCase().slice(0, 2);
+          if (l === "fr" || l === "en") {
+            lang = l;
+            break;
+          }
+        }
+        location.replace("/" + lang + "/" + location.search + location.hash);
+      })();
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/fr/" /></noscript>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #f6f5f1;
+        color: #0e1a2b;
+        font: 16px/1.6 Georgia, serif;
+      }
+      a {
+        color: inherit;
+        margin: 0 0.75rem;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #0b111a;
+          color: #ece9e1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <a href="/fr/">Français</a>
+      <a href="/en/" lang="en">English</a>
+    </p>
+  </body>
+</html>
